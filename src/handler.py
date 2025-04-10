@@ -1,4 +1,5 @@
 import json
+# This is a basic implementation.
 
 def lambda_handler(event, context=None):
     # Simulate getting the invite data from a POST body
