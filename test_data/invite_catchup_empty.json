@@ -1,0 +1,24 @@
+{
+  "subject": "Catch up",
+  "body": "",
+  "start": "2025-04-10T15:00:00Z",
+  "end": "2025-04-10T15:30:00Z",
+  "location": "Zoom",
+  "organizer": {
+    "name": "Alice Smith",
+    "email": "alice.smith@example.com"
+  },
+  "attendees": [
+    {
+      "name": "Bob Jones",
+      "email": "bob.jones@example.com",
+      "type": "required"
+    },
+    {
+      "name": "Carol Lee",
+      "email": "carol.lee@example.com",
+      "type": "optional"
+    }
+  ],
+  "uid": "event-001@example.com"
+}
