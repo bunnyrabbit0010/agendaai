@@ -1,0 +1,47 @@
+{
+    "subject": "Go/No-Go Decision on Project Gamma",
+    "body": "Hello Folks, Let's touch base to align on our decision to move forward or not with Project Gamma. You can find a summary of open issues in the attached deck. We will be investing ~$10M over 3 years, and it is very important that we are in agreement on whether or not we move forward and relay our decisions and concerns to top management.",
+    "attendees": [
+      {
+        "email": "alice.johnson@example.com",
+        "displayName": "Alice Johnson",
+        "role": "required"
+      },
+      {
+        "email": "bob.smith@example.com",
+        "displayName": "Bob Smith",
+        "role": "required"
+      },
+      {
+        "email": "carol.white@example.com",
+        "displayName": "Carol White",
+        "role": "required"
+      },
+      {
+        "email": "david.brown@example.com",
+        "displayName": "David Brown",
+        "role": "required"
+      },
+      {
+        "email": "eva.green@example.com",
+        "displayName": "Eva Green",
+        "role": "required"
+      },
+      {
+        "email": "frank.miller@example.com",
+        "displayName": "Frank Miller",
+        "role": "optional"
+      },
+      {
+        "email": "grace.lee@example.com",
+        "displayName": "Grace Lee",
+        "role": "optional"
+      },
+      {
+        "email": "henry.wilson@example.com",
+        "displayName": "Henry Wilson",
+        "role": "optional"
+      }
+    ]
+  }
+  

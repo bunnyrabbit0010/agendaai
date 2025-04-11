@@ -1,35 +1,43 @@
 import json
-# This is a basic implementation.
+import boto3
 
-def lambda_handler(event, context=None):
-    # Simulate getting the invite data from a POST body
-    if isinstance(event, str):
-        event = json.loads(event)
+def analyze_meeting(prompt, meeting):
+    print("In analyze_meeting...")
+    # Construct user message
+    user_message = (
+        f"Please evaluate the following meeting invitation:\n"
+        f"Subject: '{meeting['subject']}'\n"
+        f"Start: '{meeting['start']}'\n"
+        f"End: '{meeting['end']}'\n"
+        f"Agenda: '{meeting['body']}'"
+    )
 
-    subject = event.get("subject", "")
-    body = event.get("body", "")
-    attendees = event.get("attendees", [])
-
-    suggestions = []
-
-    if len(attendees) > 5 and not body:
-        suggestions.append("Meeting has many attendees but no agenda.")
-    if "agenda" not in body.lower():
-        suggestions.append("Consider outlining key discussion points.")
-    if "outcome" not in body.lower():
-        suggestions.append("Define the expected outcome of the meeting.")
-
-    return {
-        "statusCode": 200,
-        "body": json.dumps({
-            "subject": subject,
-            "suggestions": suggestions
-        })
+    # Prepare the payload
+    payload = {
+        "anthropic_version": "bedrock-2023-05-31",
+        "system": prompt,
+        "messages": [
+            {"role": "user", "content": [{"type": "text", "text": user_message}]}
+        ],
+        "max_tokens": 512,
+        "temperature": 0.7,
+        "top_p": 0.9
     }
 
-# For local testing
-if __name__ == "__main__":
-    with open("../test_data/invite_catchup_empty.json") as f:
-        test_event = json.load(f)
-    result = lambda_handler(test_event)
-    print(json.dumps(json.loads(result["body"]), indent=2))
+    # Initialize the Bedrock runtime client
+    bedrock_runtime = boto3.client(service_name='bedrock-runtime', region_name='us-east-2')
+
+    # Invoke the Claude 3 Haiku model
+    print("Invoking the model...")
+    response = bedrock_runtime.invoke_model(
+        body=json.dumps(payload),
+        modelId='us.anthropic.claude-3-5-haiku-20241022-v1:0',
+        accept='application/json',
+        contentType='application/json'
+    )
+
+    # Parse the response
+    response_body = json.loads(response['body'].read())
+    assistant_reply = response_body.get('content', [])[0].get('text', '').strip()
+
+    print("Assistant's Response:", assistant_reply)
